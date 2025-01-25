@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crop Recommendation</title>
+</head>
+<body>
+    <h1>Crop Recommendation System</h1>
+
+    <form method="POST" action="{% url 'recommend' %}">
+        {% csrf_token %}
+        <label for="N">Nitrogen (N):</label>
+        <input type="number" step="any" name="N" required><br><br>
+
+        <label for="P">Phosphorus (P):</label>
+        <input type="number" step="any" name="P" required><br><br>
+
+        <label for="K">Potassium (K):</label>
+        <input type="number" step="any" name="K" required><br><br>
+
+        <label for="temperature">Temperature (°C):</label>
+        <input type="number" step="any" name="temperature" required><br><br>
+
+        <label for="humidity">Humidity (%):</label>
+        <input type="number" step="any" name="humidity" required><br><br>
+
+        <label for="ph">pH Level:</label>
+        <input type="number" step="any" name="ph" required><br><br>
+
+        <label for="rainfall">Rainfall (mm):</label>
+        <input type="number" step="any" name="rainfall" required><br><br>
+
+        <button type="submit">Get Recommendation</button>
+    </form>
+
+    {% if first_best_crop %}
+        <h2>Recommended Crops:</h2>
+        <p>1st Best Crop: {{ first_best_crop }} ({{ first_best_confidence }})</p>
+        <p>2nd Best Crop: {{ second_best_crop }} ({{ second_best_confidence }})</p>
+    {% elif error %}
+        <p style="color: red;">{{ error }}</p>
+    {% endif %}
+</body>
+</html>
